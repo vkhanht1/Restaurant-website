@@ -1,0 +1,48 @@
+🍜 Miska Pho - Fullstack Restaurant Management System:
+
+Miska Pho is e-commerce and management solution for a Vietnamese restaurant. 
+This project demonstrates full-stack using the MERN (MongoDB, Express, React, Node.js).
+Featuring real-time menu management, secure online payments, and a professional administrative dashboard.
+
+🏗 System Architecture:
+
+The project is structured as a Monorepo, divided into three main specialized modules:
+/frontend: The customer-facing application. Browse dishes, manage a shopping cart, and book tables.
+/admin: A secure portal for restaurant owners to manage orders inventory, and reservations.
+/backend: The central nervous system. A RESTful API handling authentication, Stripe payments, and database logic.
+
+🌐 Live Demo Links:
+
+Customer App https://miska-pho-frontend.vercel.app/
+![Frontend Image](./frontend/src/assets/frontend-image.png)
+Admin Panel https://miska-pho-admin.vercel.app/
+![Admin Image](./frontend/src/assets/admin-image.png)
+API Server https://miska-pho-backend.vercel.app/
+![Backend Image](./frontend/src/assets/backend-image.png)
+
+🚀 Key Technical Features:
+
+1.Secure Identity Management:
+Implemented JWT for stateless authentication.
+Role-Based Access Control to separate Customer and Admin privileges.
+Secure password hashing using bcryptjs.
+
+2.Online Payment Integration:
+Full Stripe supporting credit card transactions.
+Webhook-ready logic for payment verification.
+Support for both Online Payment and Cash on Delivery.
+
+3.Cloud-Native Media Handling:
+Dynamic image management using Cloudinary.
+Automated image uploads for menu items via Multer middleware.
+
+4.Real-time Booking Engine:
+Custom logic to prevent overlapping table reservations.
+Admin confirmation/cancellation workflow.
+
+🛠 Tech Stack Summary:
+
+Frontend: React, Tailwind CSS, React Router DOM, Axios.
+Backend: Node.js, Express.js.
+Database: MongoDB Atlas with Mongoose ODM.
+Deployment: Vercel.

@@ -14,11 +14,10 @@ The project is structured as a Monorepo, divided into three main specialized mod
 Live Demo Links:
 
 Customer App https://miska-pho-frontend.vercel.app/
-![Frontend Image](./frontend/src/assets/frontend-image.png)
+
 Admin Panel https://miska-pho-admin.vercel.app/
-![Admin Image](./frontend/src/assets/admin-image.png)
+
 API Server https://miska-pho-backend.vercel.app/
-![Backend Image](./frontend/src/assets/backend-image.png)
 
 Key Technical Features:
 

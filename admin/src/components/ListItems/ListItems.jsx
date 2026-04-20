@@ -64,7 +64,7 @@ const ListItems = () => {
         fetchList();
       }
     } catch (error) {
-      toast.error("Error deleting item");
+      toast.error("Error deleting item", error);
     }
   };
 

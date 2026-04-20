@@ -31,6 +31,15 @@ const Navbar = () => {
     }
   }, [location.pathname]);
 
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    return () => { document.body.style.overflow = 'auto'; };
+  }, [isOpen]);
+
   const navLinks = [
     { name: 'Home', href: '/' },
     { name: 'Menu', href: '/menu' },
@@ -55,37 +64,63 @@ const Navbar = () => {
   };
 
   const UserDropdown = () => {
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (isDropdownOpen && !event.target.closest('.user-dropdown-container')) {
+          setIsDropdownOpen(false);
+        }
+      };
+      window.addEventListener('click', handleClickOutside);
+      return () => window.removeEventListener('click', handleClickOutside);
+    }, [isDropdownOpen]);
+
     return (
-      <div className="relative group">
-        <button className="flex items-center gap-2 px-3 py-1 rounded-full border 
-        border-amber-500/30 hover:border-amber-500 transition-all">
+      <div className="relative user-dropdown-container">
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsDropdownOpen(!isDropdownOpen);
+          }}
+          className="flex items-center gap-2 px-3 py-1 rounded-full border 
+          border-amber-500/30 hover:border-amber-500 transition-all focus:outline-none"
+        >
           <div className="w-8 h-8 rounded-full bg-amber-500 text-[#1a120b] 
-          flex items-center justify-center font-bold text-sm">
+          flex items-center justify-center font-bold text-sm pointer-events-none">
             {userInfo?.name ? userInfo.name.charAt(0).toUpperCase() : 'U'}
           </div>
-          <span
-            className="hidden md:block text-amber-100 text-sm font-cinzel">
+          <span className="hidden md:block text-amber-100 text-sm font-cinzel pointer-events-none">
             {userInfo?.name}
           </span>
         </button>
 
-        <div className="absolute right-0 top-full pt-4 w-56 opacity-0 invisible 
-        group-hover:opacity-100 group-hover:visible transition-all duration-300 
-        transform translate-y-2 group-hover:translate-y-0">
-          <div className="bg-[#1a120b] border border-amber-900/50 rounded-lg 
-          shadow-2xl overflow-hidden backdrop-blur-md">
+        <div
+          className={`absolute right-0 top-full pt-4 w-56 transition-all duration-300 transform z-[120]
+          ${isDropdownOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible translate-y-2'}`}
+          onClick={(e) => e.stopPropagation()}>
+          <div className="bg-[#1a120b] border border-amber-900/50 rounded-lg shadow-2xl overflow-hidden backdrop-blur-md">
             <div className="py-1">
-              <Link to="/myorders" className="flex items-center gap-3 px-4 py-3 text-sm 
-              text-amber-100/80 hover:bg-amber-900/30 hover:text-amber-500 transition-colors 
-              border-b border-amber-900/20">
+              <Link
+                to="/myorders"
+                onClick={() => setIsDropdownOpen(false)}
+                className="flex items-center gap-3 px-4 py-3 text-sm text-amber-100/80 hover:bg-amber-900/30 
+                hover:text-amber-500 transition-colors border-b border-amber-900/20">
                 <FiPackage /> My Orders
               </Link>
-              <Link to="/my-bookings" className="flex items-center gap-3 px-4 py-3 text-sm text-amber-100/80 
-              hover:bg-amber-900/30 hover:text-amber-500 transition-colors border-b border-amber-900/20">
+              <Link
+                to="/my-bookings"
+                onClick={() => setIsDropdownOpen(false)}
+                className="flex items-center gap-3 px-4 py-3 text-sm text-amber-100/80 hover:bg-amber-900/30 
+                hover:text-amber-500 transition-colors border-b border-amber-900/20">
                 <FiCalendar /> My Bookings
               </Link>
-              <button onClick={handleLogout} className="w-full text-left flex items-center gap-3 px-4 py-3 
-              text-sm text-red-400 hover:bg-red-900/20 transition-colors">
+              <button
+                onClick={() => {
+                  handleLogout();
+                  setIsDropdownOpen(false);
+                }}
+                className="w-full text-left flex items-center gap-3 px-4 py-3 text-sm 
+                text-red-400 hover:bg-red-900/20 transition-colors">
                 <FiLogOut /> Logout
               </button>
             </div>
@@ -174,15 +209,17 @@ const Navbar = () => {
                 rounded-full flex items-center justify-center font-bold">{totalItems}</span>
               )}
             </Link>
-            <button onClick={() => setIsOpen(!isOpen)} className="text-amber-500 text-2xl">
+            <button onClick={() => setIsOpen(!isOpen)} className="text-amber-500 text-2xl z-[110] relative focus:outline-none">
               {isOpen ? <FiX /> : <FiMenu />}
             </button>
           </div>
-
         </div>
 
-        <div className={`fixed inset-0 bg-[#1a120b] z-40 flex flex-col items-center justify-center 
-        gap-8 transition-transform duration-500 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+        <div className={`fixed inset-0 top-0 left-0 w-full h-screen bg-[#1a120b] z-[100] flex flex-col items-center justify-center gap-8 
+          transition-transform duration-500 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'} overflow-y-auto`}>
+          <div className="mb-4 mt-10">
+            <img src={logoImage} alt="Logo" style={{ filter: 'brightness(0) invert(1)' }} className="w-16 h-16 opacity-50" />
+          </div>
           {navLinks.map((link) => (
             <NavLink
               key={link.name}

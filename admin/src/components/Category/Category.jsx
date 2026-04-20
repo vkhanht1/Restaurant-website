@@ -55,7 +55,7 @@ const Category = ({ url }) => {
                 toast.error(res.data.message);
             }
         } catch (error) {
-            toast.error("Error adding");
+            toast.error("Error adding", error);
         }
     }
 
@@ -80,7 +80,7 @@ const Category = ({ url }) => {
                 toast.error(res.data.message);
             }
         } catch (error) {
-            toast.error("Update failed");
+            toast.error("Update failed", error);
         }
     };
 
@@ -98,7 +98,7 @@ const Category = ({ url }) => {
                 fetchCategories();
             }
         } catch (error) {
-            toast.error("Delete failed");
+            toast.error("Delete failed", error);
         }
     };
 

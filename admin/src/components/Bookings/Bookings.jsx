@@ -138,7 +138,7 @@ const Bookings = () => {
                             <table className={tableClasses.table}>
                                 <thead className={tableClasses.headerRow}>
                                     <tr>
-                                        <th className="p-4 text-left font-cinzel text-amber-400 uppercase tracking-wider text-sm">Customer</th>git add .
+                                        <th className="p-4 text-left font-cinzel text-amber-400 uppercase tracking-wider text-sm">Customer</th>
                                         <th className="p-4 text-left font-cinzel text-amber-400 uppercase tracking-wider text-sm">Guests</th>
                                         <th className="p-4 text-left font-cinzel text-amber-400 uppercase tracking-wider text-sm">Date & Time</th>
                                         <th className="p-4 text-left font-cinzel text-amber-400 uppercase tracking-wider text-sm">Note</th>
